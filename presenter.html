@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="http://pybossa.com/static/vendor/bootstrap/2.0.4/bootstrap.min.css" />
+<link rel="stylesheet" href="http://pybossa.com/static/vendor/bootstrap/2.0.4/bootstrap-responsive.min.css" />
+
+<div class="row">
+  <!-- Success and Error Messages for the user --> 
+  <!-- Question, task id, photo and action buttons for answering the question-->
+  <div class="span8 offset2" style="height:50px">
+    <div id="success" class="alert alert-success" style="display:none;">
+      <a class="close">×</a>
+      <strong>Well done!</strong> Your answer has been saved</strong>
+    </div>
+    <div id="finish" class="alert alert-success" style="display:none;">
+      <strong>Congratulations!</strong> All the tasks have been completed!</strong>
+      <br/>
+      <div class="alert-actions">
+              <a class="btn small" href="/">Go back</a>
+              <a class="btn small" href="/app">or, Check other applications</a>
+      </div>
+    </div>
+    <div id="error" class="alert alert-error" style="display:none;">
+      <a class="close">×</a>
+      <strong>Error!</strong> Something went wrong, please contact the site administrators</strong>
+    </div>
+  </div> <!-- End Success and Error Messages for the user -->
+</div>
+
+<h2>Transcribe the letter on the left in the right hand box</h2>
+<div class="row">
+  <div class="span6">
+    <div class="viewer" style="width: 400px; height: 400px;"></div>
+  </div>
+  <div class="span6">
+    <textarea placeholder="Transcribe it here!" class="span5" style="height: 400px;"></textarea>
+  </div>
+</div>
+
+
+<script src="http://pybossa.com/static/vendor/jquery.js"></script>
+<script src="http://pybossa.com/static/js/pybossa/pybossa.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<script src="jquery.mousewheel.min.js"></script>
+<script src="jquery.iviewer.js"></script>
+<script>
+var img = 'http://www.europeana1914-1918.eu/attachments/34532/2696.34532.large.jpg';
+      $(document).ready(function(){
+          $(".viewer").iviewer(
+             {
+               src: img, 
+               update_on_resize: false,
+               initCallback: function ()
+               {
+                   var object = this;
+                   $("#in").click(function(){ object.zoom_by(1);}); 
+                   $("#out").click(function(){ object.zoom_by(-1);}); 
+                   $("#fit").click(function(){ object.fit();}); 
+                   $("#orig").click(function(){  object.set_zoom(100); }); 
+                   $("#update").click(function(){ object.update_container_info();});
+               },
+               onMouseMove: function(object, coords) { },
+               onStartDrag: function(object, coords) { return true; }, //this image will not be dragged
+               onDrag: function(object, coords) { }
+          });
+      });
+</script>
