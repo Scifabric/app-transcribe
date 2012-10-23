@@ -43,8 +43,16 @@
 <h2>Transcribe the coordinates in the image on the left in the right hand box</h2>
 
 <div class="row skeleton" style="padding-top:10px;">
-  <div class="span6" id="viewer" style="overflow:hidden;">
-      <img id="photo" src="http://img339.imageshack.us/img339/9017/loadingo.png" style="max-width=100%">
+  <div class="span6">
+    <span>
+        <a id="in" class="btn" href="#">+</a>
+        <a id="out" class="btn" href="#">-</a>
+        <a id="fit" class="btn" href="#">fit</a>
+        <a id="orig" class="btn" href="#">orig</a>
+        <a id="update" class="btn" href="#">update</a>
+    </span>
+    <div class="viewer" style="width: 500px; height: 600px; position: relative; margin: 0 auto;"></div>
+    <!-- <img id="photo" src="http://img339.imageshack.us/img339/9017/loadingo.png" style="max-width=100%"> -->
   </div>
   <div class="span6">
       <div class="row">
@@ -75,17 +83,37 @@
   </div>
 </div>
 
-<script src="http://pybossa.com/static/vendor/jquery.js"></script>
-<script src="http://pybossa.com/static/js/pybossa/pybossa.js"></script>
+<script src="/static/vendor/jquery.js"></script>
+<script src="/static/js/pybossa/pybossa.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script src="http://raw.github.com/PyBossa/app-transcribe/master/jquery.mousewheel.min.js"></script>
 <script src="https://raw.github.com/PyBossa/app-transcribe/master/jquery.iviewer.js"></script>
 <script>
+var img = 'http://img339.imageshack.us/img339/9017/loadingo.png';
+$(".viewer").iviewer(
+   {
+     src: img,
+//     update_on_resize: false,
+     initCallback: function ()
+     {
+         var object = this;
+         $("#in").click(function(){ object.zoom_by(1);});
+         $("#out").click(function(){ object.zoom_by(-1);});
+         $("#fit").click(function(){ object.fit();});
+         $("#orig").click(function(){ object.set_zoom(100); });
+         $("#update").click(function(){ object.update_container_info();});
+     },
+//     onMouseMove: function(object, coords) { },
+//     onStartDrag: function(object, coords) { return true; }, //this image will not be dragged
+//     onDrag: function(object, coords) { }
+});
 // Function to load the TaskRun data into the HTML skeleton
 function loadData( data ) {
     // Uncomment next line for debugging purposes
     //console.log( data );
     if ( !$.isEmptyObject(data.task) ) {
         $("#task-id").text(data.task.id);
-        $("#photo").attr("src",data.task.info.url_m);
+        $('.viewer').iviewer('loadImage', data.task.info.image_url);
     }
     else {
         $(".skeleton").hide();
@@ -108,7 +136,7 @@ function loadTask( task_id ) {
             }
             loadUserProgress();
             $("#task-id").text(task.id);
-            $("#photo").attr("src", task.info.image_url);
+            $('.viewer').iviewer('loadImage', task.info.image_url);
         }
         else {
             $(".skeleton").hide();
