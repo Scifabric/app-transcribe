@@ -48,8 +48,7 @@
         <a id="in" class="btn" href="#">+</a>
         <a id="out" class="btn" href="#">-</a>
         <a id="fit" class="btn" href="#">fit</a>
-        <a id="orig" class="btn" href="#">orig</a>
-        <a id="update" class="btn" href="#">update</a>
+        <a id="orig" class="btn" href="#">original</a>
     </span>
     <div class="viewer" style="width: 500px; height: 600px; position: relative; margin: 0 auto;"></div>
     <!-- <img id="photo" src="http://img339.imageshack.us/img339/9017/loadingo.png" style="max-width=100%"> -->
@@ -101,7 +100,6 @@ $(".viewer").iviewer(
          $("#out").click(function(){ object.zoom_by(-1);});
          $("#fit").click(function(){ object.fit();});
          $("#orig").click(function(){ object.set_zoom(100); });
-         $("#update").click(function(){ object.update_container_info();});
      },
 //     onMouseMove: function(object, coords) { },
 //     onStartDrag: function(object, coords) { return true; }, //this image will not be dragged
